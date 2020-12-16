@@ -1,0 +1,11 @@
+[urls]
+
+  [urls.marks_for_period]
+  url = "https://dnevnik2.petersburgedu.ru/api/journal/estimate/table"
+
+    [urls.marks_for_period.params]
+    'p_educations[]' = 427304
+    p_date_from = "04.11.2020"
+    p_date_to = "27.12.2020"
+    p_limit = 200
+    p_page = 1
