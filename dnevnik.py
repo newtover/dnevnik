@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+import argparse
 import datetime as dt
 import json
-import sys
 from collections import defaultdict
 from pathlib import Path
 from typing import Dict
 
+import pip._vendor.pkg_resources as pkg_resources
 import pip._vendor.toml as toml
 
 from dnevnik2 import Dnevnik2
@@ -21,14 +22,22 @@ def to_date(text):
 
 
 def main():
-    config_path = Path('app_config.toml')
-    cookies_path = Path('cookies.json')
-    base_dir = Path(sys.argv[0]).parent.absolute()
+    default_config_path = Path(pkg_resources.resource_filename('dnevnik2', '../app_config.toml')).resolve()
+    default_output_dir = Path('.').resolve()
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument('cookies_path', type=Path)
+    arg_parser.add_argument('--config_path', type=Path, default=default_config_path)
+    arg_parser.add_argument('--output_dir', type=Path, default=default_output_dir)
+    args = arg_parser.parse_args()
 
-    with (base_dir / config_path).open('r', encoding='utf-8') as f1:
+    cookies_path: Path = args.cookies_path
+    config_path: Path = args.config_path
+    base_dir: Path = args.output_dir
+
+    with config_path.open('r', encoding='utf-8') as f1:
         config = toml.load(f1)
 
-    dnevnik = Dnevnik2.make_from_cookies_file(base_dir / cookies_path)
+    dnevnik = Dnevnik2.make_from_cookies_file(cookies_path)
 
     data = dnevnik.fetch_marks_for_current_quarter()
 
