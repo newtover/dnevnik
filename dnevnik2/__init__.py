@@ -20,7 +20,7 @@ REFERRERS = {
 
 
 def make_session() -> requests.Session:
-    headers_path = Path(pkg_resources.resource_filename(__name__, '../headers.json'))
+    headers_path = Path(pkg_resources.resource_filename(__name__, 'headers.json'))
     if not headers_path.exists():
         raise ValueError(f'headers file {headers_path} is missing')
     with headers_path.open('r', encoding='utf-8') as f1:

@@ -22,7 +22,7 @@ def to_date(text):
 
 
 def main():
-    default_config_path = Path(pkg_resources.resource_filename('dnevnik2', '../app_config.toml')).resolve()
+    default_config_path = Path(pkg_resources.resource_filename('dnevnik2', 'app_config.toml')).resolve()
     default_output_dir = Path('.').resolve()
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('cookies_path', type=Path)
