@@ -12,6 +12,7 @@ BASE_URL = 'https://dnevnik2.petersburgedu.ru/'
 
 REFERRERS = {
     '/api/user/auth/login': '/login',
+    '/api/journal/person/related-child-list': '/students/my',
 }
 
 
@@ -77,3 +78,10 @@ class Dnevnik2:
             })
         with path.open('w', encoding='utf-8') as f1:
             json.dump(cookies, f1, indent=2, ensure_ascii=True)
+
+    def fetch_children_list(self) -> dict:
+        path = '/api/journal/person/related-child-list'
+        url, headers = self._make_url_and_referer(path, self.base_url)
+        with self._session.get(url, headers=headers) as res:
+            res.raise_for_status()
+            return res.json()
