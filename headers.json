@@ -1,11 +1,7 @@
 [
             {
-              "name": "Host",
-              "value": "dnevnik2.petersburgedu.ru"
-            },
-            {
               "name": "User-Agent",
-              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:84.0) Gecko/20100101 Firefox/84.0"
+              "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:96.0) Gecko/20100101 Firefox/96.0"
             },
             {
               "name": "Accept",
@@ -34,14 +30,6 @@
             {
               "name": "Connection",
               "value": "keep-alive"
-            },
-            {
-              "name": "Referer",
-              "value": "https://dnevnik2.petersburgedu.ru/estimate"
-            },
-            {
-              "name": "Cookie",
-              "value": ""
             },
             {
               "name": "Sec-Fetch-Dest",

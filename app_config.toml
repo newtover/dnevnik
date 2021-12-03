@@ -1,11 +1,12 @@
-[urls]
+[methods]
 
-  [urls.marks_for_period]
-  url = "https://dnevnik2.petersburgedu.ru/api/journal/estimate/table"
+    [methods.fetch_marks_for_period]
+    education = 427304
+    date_from = "04.11.2021"
+    date_to = "27.12.2021"
+    limit = 200
 
-    [urls.marks_for_period.params]
-    'p_educations[]' = 427304
-    p_date_from = "04.11.2020"
-    p_date_to = "27.12.2020"
-    p_limit = 200
-    p_page = 1
+[subjects]
+113703 = "Английский язык"
+113704 = "Немецкий язык"
+11249 = "ОБЖ"
