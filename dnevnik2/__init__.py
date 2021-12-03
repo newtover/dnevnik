@@ -6,6 +6,7 @@ from urllib.parse import urljoin
 
 import pip._vendor.pkg_resources as pkg_resources
 import pip._vendor.requests as requests
+from pip._vendor.requests.cookies import RequestsCookieJar
 
 BASE_URL = 'https://dnevnik2.petersburgedu.ru/'
 
@@ -50,6 +51,18 @@ class Dnevnik2:
             res.raise_for_status()
         dnevnik: 'Dnevnik2' = cls(session.cookies, base_url=base_url)
         return dnevnik
+
+    @classmethod
+    def make_from_cookies_file(cls, cookies_path: Path, base_url: str = BASE_URL) -> 'Dnevnik2':
+        if not cookies_path.exists():
+            raise ValueError(f"file {cookies_path} doesn't exist")
+        with cookies_path.open('r', encoding='utf-8') as f1:
+            cookies = json.load(f1)
+        cookies_jar = RequestsCookieJar()
+        for item in cookies:
+            cookies_jar.set(**item)
+
+        return cls(cookies_jar, base_url)
 
     def save_cookies(self, path: Path):
         cookies = []
