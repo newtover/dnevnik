@@ -29,9 +29,8 @@ def main():
         config = toml.load(f1)
 
     dnevnik = Dnevnik2.make_from_cookies_file(base_dir / cookies_path)
-    params = config['methods']['fetch_marks_for_period']
 
-    data = dnevnik.fetch_marks_for_period(**params)
+    data = dnevnik.fetch_marks_for_current_quarter()
 
     with (base_dir / 'last_res.txt').open('w', encoding='utf-8') as f1:
         print(json.dumps(data, ensure_ascii=False, indent=2), file=f1)

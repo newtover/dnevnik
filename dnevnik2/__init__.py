@@ -140,3 +140,27 @@ class Dnevnik2:
             'p_page': page
         }
         return self._fetch_json_for_path(path, params=params)
+
+    def fetch_marks_for_current_quarter(self, education: int = 0, child_idx: int = 0) -> dict:
+        if not education:
+            children = self.fetch_children_list()
+            assert child_idx < len(children['data']['items']), len(children['data']['items'])
+            education = children['data']['items'][child_idx]['educations'][0]['education_id']
+        today = dt.date.today()
+        if today.month >= 9:
+            q2_start = dt.date(today.year, 11, 4)
+            if today < q2_start:
+                q_start = dt.date(today.year, 9, 1)
+                q_end = dt.date(today.year, 10, 24)
+            else:
+                q_start = q2_start
+                q_end = dt.date(today.year, 12, 27)
+        else:
+            q4_start = dt.date(today.year, 4, 3)
+            if today < q4_start:
+                q_start = dt.date(today.year, 1, 10)
+                q_end = dt.date(today.year, 3, 22)
+            else:
+                q_start = q4_start
+                q_end = dt.date(today.year, 5, 30)
+        return self.fetch_marks_for_period(education, q_start, q_end)
